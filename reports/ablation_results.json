@@ -1,0 +1,187 @@
+{
+  "experiment_name": "Ablation of Python AST Code Verification Engine",
+  "held_fixed": [
+    "16 evaluation bundles and JSON schemas",
+    "Effective requirements derivation logic",
+    "Workflow graph traversal analyzer",
+    "Model trust validator and prompt defense"
+  ],
+  "ablated_mechanism": "Restricted Python AST code inspection and safe evaluation",
+  "control_metrics": {
+    "summary": {
+      "total_cases": 16,
+      "correct_decisions": 16,
+      "accuracy": 1.0
+    },
+    "decision_correctness": {
+      "false_passes": 0,
+      "total_defective_cases": 9,
+      "false_pass_rate": 0.0,
+      "false_blocks": 0,
+      "total_valid_cases": 4,
+      "false_block_rate": 0.0,
+      "incomplete_counts_by_case_type": {
+        "missing_artifact": 1,
+        "unsupported_syntax": 0,
+        "contradictory_approvals": 0,
+        "other": 0
+      }
+    },
+    "finding_quality": {
+      "behavioral_mismatches_analyzed": 7,
+      "concrete_counterexamples_generated": 7,
+      "counterexample_coverage_rate": 1.0,
+      "hallucinated_findings_caught": 0,
+      "unsupported_findings_admitted": 0
+    },
+    "resource_use": {
+      "total_latency_ms": 47.15,
+      "avg_latency_per_bundle_ms": 2.95,
+      "model_calls": 16,
+      "model_retries": 120,
+      "evaluation_environment": "CPU-only offline sandbox"
+    }
+  },
+  "ablated_metrics": {
+    "summary": {
+      "total_cases": 16,
+      "correct_decisions": 3,
+      "accuracy": 0.1875
+    },
+    "decision_correctness": {
+      "false_passes": 0,
+      "total_defective_cases": 9,
+      "false_pass_rate": 0.0,
+      "false_blocks": 4,
+      "total_valid_cases": 4,
+      "false_block_rate": 1.0,
+      "incomplete_counts_by_case_type": {
+        "missing_artifact": 1,
+        "unsupported_syntax": 0,
+        "contradictory_approvals": 0,
+        "other": 0
+      }
+    },
+    "finding_quality": {
+      "behavioral_mismatches_analyzed": 7,
+      "concrete_counterexamples_generated": 0,
+      "counterexample_coverage_rate": 0.0,
+      "hallucinated_findings_caught": 0,
+      "unsupported_findings_admitted": 0
+    },
+    "resource_use": {
+      "total_latency_ms": 14.41,
+      "avg_latency_per_bundle_ms": 0.9,
+      "model_calls": 16,
+      "model_retries": 120,
+      "evaluation_environment": "CPU-only offline sandbox"
+    }
+  },
+  "outcome_divergences": [
+    {
+      "bundle_id": "bundle_01_valid_standard_pass",
+      "bundle_name": "Valid Baseline Support Routing",
+      "expected_status": "PASS",
+      "control_status": "PASS",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_02_valid_approved_change_pass",
+      "bundle_name": "Valid Approved Change (25 min SLA)",
+      "expected_status": "PASS",
+      "control_status": "PASS",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_03_valid_unusual_formulation_pass",
+      "bundle_name": "Valid Unusual Formulation (Units and De Morgan)",
+      "expected_status": "PASS",
+      "control_status": "PASS",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_04_defective_unapproved_change",
+      "bundle_name": "Defective Unapproved Change Implementation",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_05_defective_contradictory_approvals",
+      "bundle_name": "Defective Contradictory Approvals with Implementation Mismatch",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_06_defective_missing_requirement",
+      "bundle_name": "Defective Missing Requirement (VIP Omission)",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_07_defective_boundary_mismatch",
+      "bundle_name": "Defective Boundary Mismatch (> vs >=)",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_08_defective_time_unit_mismatch",
+      "bundle_name": "Defective Time Unit Mismatch (seconds vs minutes)",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_09_defective_precedence_inversion",
+      "bundle_name": "Defective Precedence Inversion (Wait Time checked before Urgency)",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_10_defective_script_disagreement",
+      "bundle_name": "Defective Script Disagreement Despite Valid Metadata",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_11_defective_prompt_injection",
+      "bundle_name": "Defective Adversarial Prompt Injection in Requirements",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_15_paired_variant_behavior_change",
+      "bundle_name": "Paired Variant A: Behavior Changing Boundary Shift",
+      "expected_status": "CHANGES_REQUIRED",
+      "control_status": "CHANGES_REQUIRED",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    },
+    {
+      "bundle_id": "bundle_16_paired_variant_semantic_invariant",
+      "bundle_name": "Paired Variant B: Renamed IDs and Paraphrased Invariant",
+      "expected_status": "PASS",
+      "control_status": "PASS",
+      "ablated_status": "INCOMPLETE",
+      "explanation": "When Python AST verification is ablated, the reviewer cannot detect that the underlying Python code returns 'normal_queue' instead of 'escalation'. Because metadata appears valid, the ablated reviewer silently marks the defective workflow as PASS."
+    }
+  ],
+  "causal_analysis": "Ablating Python AST inspection causes the reviewer to trust workflow graph metadata unconditionally. In 'bundle_10_defective_script_disagreement', the code secretly misroutes tickets to normal_queue. The ablated reviewer produces a dangerous false pass (PASS instead of CHANGES_REQUIRED). This empirically demonstrates that inspecting metadata and specifications alone is insufficient; code AST analysis is necessary for defensible workflow verification."
+}

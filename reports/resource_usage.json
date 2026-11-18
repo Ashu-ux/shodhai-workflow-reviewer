@@ -1,0 +1,7 @@
+{
+  "total_latency_ms": 77.33,
+  "avg_latency_per_bundle_ms": 4.83,
+  "model_calls": 16,
+  "model_retries": 120,
+  "evaluation_environment": "CPU-only offline sandbox"
+}

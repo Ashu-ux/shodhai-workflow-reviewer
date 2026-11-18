@@ -1,0 +1,115 @@
+{
+  "bundle_id": "bundle_13_incomplete_unsupported_syntax",
+  "name": "Incomplete Review Due to Ambiguous Syntax",
+  "description": "Requirement R1 contains ambiguous natural language sentiment condition that cannot be deterministically verified.",
+  "source_requirements": [
+    {
+      "id": "R1",
+      "version": "1.0",
+      "section": "Policy.md",
+      "title": "Ambiguous Sentiment Policy",
+      "condition_dsl": "sentiment is distressed or vibes == 'negative'",
+      "action": "empathy_queue",
+      "precedence": 1,
+      "prose": "Tickets with distressed sentiment vibe or negative emotional aura should receive special care.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": false,
+      "ambiguity_reason": "Natural language sentiment cannot be deterministically evaluated"
+    },
+    {
+      "id": "R2",
+      "version": "1.0",
+      "section": "Policy.md",
+      "title": "Normal",
+      "condition_dsl": "urgency == 'normal'",
+      "action": "normal_queue",
+      "precedence": 2,
+      "prose": "Normal tickets.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": true,
+      "ambiguity_reason": null
+    }
+  ],
+  "specification": {
+    "id": "SPEC-13",
+    "version": "1.0",
+    "rules": [
+      {
+        "rule_id": "R1",
+        "condition_dsl": "sentiment is distressed or vibes == 'negative'",
+        "action": "empathy_queue",
+        "precedence": 1,
+        "metadata": {}
+      },
+      {
+        "rule_id": "R2",
+        "condition_dsl": "urgency == 'normal'",
+        "action": "normal_queue",
+        "precedence": 2,
+        "metadata": {}
+      }
+    ],
+    "fallback_action": "normal_queue",
+    "evidence_location": ""
+  },
+  "workflow_graph": {
+    "id": "WF-13",
+    "version": "1.0",
+    "entry_node_id": "N1",
+    "nodes": {
+      "N1": {
+        "node_id": "N1",
+        "type": "condition",
+        "rule_ref": "R1",
+        "condition_dsl": "sentiment is distressed",
+        "if_true": "empathy_queue",
+        "if_false": "N2",
+        "action": null,
+        "version": "1.0"
+      },
+      "N2": {
+        "node_id": "N2",
+        "type": "condition",
+        "rule_ref": "R2",
+        "condition_dsl": "urgency == 'normal'",
+        "if_true": "normal_queue",
+        "if_false": "N_FALLBACK",
+        "action": null,
+        "version": "1.0"
+      },
+      "N_FALLBACK": {
+        "node_id": "N_FALLBACK",
+        "type": "action",
+        "rule_ref": null,
+        "condition_dsl": null,
+        "if_true": null,
+        "if_false": null,
+        "action": "normal_queue",
+        "version": "1.0"
+      }
+    }
+  },
+  "python_snippets": [
+    {
+      "snippet_id": "SNIP-13",
+      "rule_ref": "1.0",
+      "version": "router.py",
+      "file_path": "",
+      "entry_function": "route_ticket",
+      "code": "def route_ticket(ticket):\n    if ticket.get(\"sentiment\") == \"distressed\":\n        return \"empathy_queue\"\n    if ticket.get(\"urgency\") == \"normal\":\n        return \"normal_queue\"\n    return \"normal_queue\"\n"
+    }
+  ],
+  "approval_records": [],
+  "expected_status": "INCOMPLETE",
+  "expected_defects": [
+    "UNSUPPORTED_SYNTAX",
+    "AMBIGUOUS_REQUIREMENT"
+  ],
+  "tags": [
+    "incomplete",
+    "ambiguity"
+  ],
+  "is_frozen": false
+}

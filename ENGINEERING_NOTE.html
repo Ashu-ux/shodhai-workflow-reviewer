@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ShodhAI Engineering Note</title>
+<style>
+    @page {
+        size: letter;
+        margin: 18mm 16mm 18mm 16mm;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 10.5pt;
+        line-height: 1.45;
+        color: #1f2328;
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 20pt;
+        border-bottom: 2px solid #0969da;
+        padding-bottom: 6px;
+        margin-top: 0;
+        color: #1f2328;
+    }
+    h2 {
+        font-size: 13.5pt;
+        border-bottom: 1px solid #d0d7de;
+        padding-bottom: 4px;
+        margin-top: 18px;
+        margin-bottom: 8px;
+        color: #0969da;
+        page-break-after: avoid;
+    }
+    h3 {
+        font-size: 11pt;
+        margin-top: 12px;
+        margin-bottom: 4px;
+        color: #24292f;
+        page-break-after: avoid;
+    }
+    p {
+        margin: 5px 0;
+    }
+    li {
+        margin-left: 20px;
+        margin-bottom: 3px;
+    }
+    code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 9pt;
+        background-color: #f6f8fa;
+        padding: 2px 4px;
+        border-radius: 4px;
+        border: 1px solid #e1e4e8;
+    }
+    pre {
+        background-color: #f6f8fa;
+        border: 1px solid #d0d7de;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 8.5pt;
+        overflow-x: auto;
+        margin: 8px 0;
+    }
+    table.doc-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 9pt;
+    }
+    table.doc-table th, table.doc-table td {
+        border: 1px solid #d0d7de;
+        padding: 5px 8px;
+        text-align: left;
+    }
+    table.doc-table th {
+        background-color: #f6f8fa;
+        font-weight: 600;
+    }
+    table.doc-table tr:nth-child(even) {
+        background-color: #fcfdfe;
+    }
+    hr {
+        border: 0;
+        border-top: 1px solid #d0d7de;
+        margin: 14px 0;
+    }
+    strong {
+        color: #000;
+    }
+</style>
+</head>
+<body>
+<h1>Engineering Note: AI-Assisted Workflow Reviewer</h1>
+<p><strong>Candidate:</strong> Ashutosh Kumar  </p>
+<p><strong>Assessment:</strong> ShodhAI AI and ML Engineer Intern Take-Home Assessment (2026)  </p>
+<p><strong>System:</strong> Multi-Stage AI-Assisted Decision Workflow Reviewer  </p>
+<p><strong>Target Architecture:</strong> CPU-only, Python 3.10+, Deterministic AST Semantic Analysis with Guarded Model Trust  </p>
+<p></p>
+<hr/>
+<p></p>
+<h2>1. Executive Summary & Objective</h2>
+<p></p>
+<p>In support operations, ticket routing policies govern customer satisfaction and SLAs. As organizations evolve, written policies, structured specifications, workflow DAGs, and linked Python code diverge due to incremental updates, conflicting approvals, and developer misinterpretations. </p>
+<p></p>
+<p>This project implements an <strong>AI-Assisted Workflow Reviewer</strong> that checks whether structured specifications, workflow execution graphs, and linked Python code faithfully implement written source requirements across revisions and conflicting instructions. </p>
+<p></p>
+<p>The system operates across four cumulative stages:</p>
+<p>1. <strong>Stage 1 (Contracts & Effective Requirements):</strong> Schemas for anchored requirements, specifications, workflow graphs, restricted Python snippets, and approval records. Parses a formal condition DSL, resolves revisions chronologically, and flags contradictory approvals without silent resolution.</p>
+<p>2. <strong>Stage 2 (Deterministic Semantic Review):</strong> Compares effective requirements across specification rules, graph reachability paths, and restricted Python AST without arbitrary execution. Identifies omissions, boundary shifts (<code>></code> vs <code>>=</code>), time unit mismatches (<code>0.5h</code> vs <code>30m</code>), dead branches, and precedence inversions, generating concrete ticket counterexamples for behavioral mismatches.</p>
+<p>3. <strong>Stage 3 (Model Trust & Failure Handling):</strong> Connects a model client interface with a deterministic local fake client supporting fault injection (timeouts, malformed/truncated JSON, hallucinated references, prompt injection). Enforces an integrity invariant where deterministic verification holds absolute authority.</p>
+<p>4. <strong>Stage 4 (Controlled Evaluation & Debugging):</strong> Validates the system across 16 synthetic review bundles (including a 4-bundle frozen test set). Demonstrates an accuracy leap from 31.2% (v0.1 baseline) to 100.0% (v1.0 final), preserves two substantive debugging regressions, and evaluates a controlled ablation.</p>
+<p></p>
+<hr/>
+<p></p>
+<h2>2. Supported Scope & Language Contracts</h2>
+<p></p>
+<h3>2.1 Condition DSL Grammar</h3>
+<p>The declared language covers:</p>
+<li>**Missing Value Checks:** `category is None`, `missing category`, `category is not None`.</li>
+<li>**Numeric Boundary Comparisons:** `>`, `>=`, `<`, `<=`, `==`, `!=` over declared metrics (e.g. `wait_time`).</li>
+<li>**Declared Time Units:** `seconds` (`s`), `minutes` (`min`, `m`), `hours` (`hr`, `h`), `days` (`d`). Canonicalized into continuous minute intervals.</li>
+<li>**Categorical & Boolean Equalities:** `urgency == 'urgent'`, `is_vip == True`.</li>
+<li>**Nested Boolean Logic:** `AND`, `OR`, `NOT`, stripped parentheses, flattened associative operators, and De Morgan transformations (`not (A or B) == not A and not B`).</li>
+<li>**Ordered Exceptions:** `X unless Y` canonicalized into `X and not (Y)`.</li>
+<li>**Swapped Operands:** `0.5 hours <= wait_time` canonicalized to `wait_time in [30.0, inf) (minutes)`.</li>
+<p></p>
+<h3>2.2 Restricted Python Subset</h3>
+<p>To guarantee safe execution without executing arbitrary untrusted code, the Python analyzer restricts code to:</p>
+<li>**Allowed AST Nodes:** `Module`, `FunctionDef`, `If`, `Compare`, `BoolOp`, `UnaryOp`, `Constant`, `Name`, `Return`, `Subscript`, and attribute `ticket.get(...)`.</li>
+<li>**Forbidden Constructs:** Loops (`While`, `For`), arbitrary imports, file/system calls (`open`, `os`, `sys`), and dynamic code evaluation (`eval`, `exec`).</li>
+<li>**Execution Model:** Extracted AST condition branches are evaluated inside a pure domain evaluator rather than through host Python `exec()`.</li>
+<p></p>
+<h3>2.3 Unsupported & Ambiguous Construct Visibility</h3>
+<p>Ambiguous natural language clauses (e.g., <em>"Tickets with distressed sentiment vibe should receive gentle care"</em>) cannot be deterministically resolved. The system parses them into <code>UnsupportedNode(raw_text, reason)</code>. Rather than silently dropping them from coverage, they are explicitly recorded in <code>unreviewed_scope</code> and produce <code>INCOMPLETE</code> review statuses.</p>
+<p></p>
+<hr/>
+<p></p>
+<h2>3. Architecture & Design Choices</h2>
+<p></p>
+<pre><code>
+[Source Requirements] + [Approval Records]
+                 │
+                 ▼
+  Stage 1: Effective Requirements Engine
+       ├── Rejects PROPOSED / REJECTED records
+       ├── Applies APPROVED records chronologically
+       └── Detects Contradictory Approvals (Emits Warning, No Silent Guessing)
+                 │
+                 ▼
+  Stage 2: Deterministic Semantic Verifier
+       ├── Cross-Artifact Omission Check (Spec, Graph, AST)
+       ├── Numeric Interval Solver (Inclusive vs Exclusive Bounds)
+       ├── Graph Reachability &amp; Dead Branch Detector
+       ├── Precedence Inversion &amp; Shadowing Analyzer
+       └── Concrete Counterexample Generator (Ticket Feature Grid)
+                 │
+                 ▼
+  Stage 3: Model Trust &amp; Injection Defense
+       ├── Schema &amp; JSON Malformation Recovery
+       ├── Hallucinated Rule Reference Filter
+       └── Deterministic Override Invariant (Model cannot override Blockers)
+                 │
+                 ▼
+       Final ReviewReport JSON (PASS | CHANGES_REQUIRED | INCOMPLETE)
+</pre>
+<p></p>
+<h3>3.1 Trust Boundary and Revision Authority</h3>
+<p>Top-level <code>ApprovalRecord(status="APPROVED")</code> metadata is trusted. Textual claims inside policy prose or developer comments (e.g., <em>"approved by team lead"</em>) are treated as untrusted data. When conflicting approved records target the same rule without an explicit temporal ordering, the system refuses to silently pick a convenient version, reporting an unresolvable contradiction.</p>
+<p></p>
+<h3>3.2 Separation of Inspection, Checking, and Execution</h3>
+<p>Arbitrary code execution presents severe security and stability risks. The system strictly isolates code inspection (verifying syntax and AST safety), formal property extraction (mapping AST comparisons to canonical intervals), and simulated execution (evaluating extracted AST branches against ticket feature vectors).</p>
+<p></p>
+<hr/>
+<p></p>
+<h2>4. Semantic Checks & Counterexample Generation</h2>
+<p></p>
+<h3>4.1 Boundary Interval Solving</h3>
+<p>Numeric conditions are represented as continuous intervals on the real line:</p>
+<p>$$\mathcal{I} = \langle \min, \max, \text{inclusive\_left}, \text{inclusive\_right} \rangle$$</p>
+<li>`wait_time >= 30` maps to $[30.0, \infty)$</li>
+<li>`wait_time > 30` maps to $(30.0, \infty)$</li>
+<li>`30 <= wait_time` normalizes to $[30.0, \infty)$</li>
+<li>`0.5 hours <= wait_time` normalizes to $[30.0, \infty)$</li>
+<p></p>
+<p>Equivalence between two conditions $C_1$ and $C_2$ is verified through canonical normal forms and domain grid evaluation. If an implementation shifts a boundary from $\ge 30$ to $> 30$, interval comparison detects that $30.0 \in C_1$ but $30.0 \notin C_2$.</p>
+<p></p>
+<h3>4.2 Precedence Inversion & Rule Shadowing</h3>
+<p>Routing rules enforce strict order of precedence. The analyzer compares the required topological order against reachable workflow graph paths and Python statement sequences. If Rule $A$ has higher precedence than Rule $B$, but the workflow evaluates Rule $B$ first, tickets satisfying both rules are diverted to $B$'s action, causing a precedence inversion.</p>
+<p></p>
+<h3>4.3 Concrete Counterexample Search</h3>
+<p>When a behavioral discrepancy exists, abstract diffs are insufficient for engineering teams. The <code>CounterexampleGenerator</code> explores a targeted domain feature grid:</p>
+<li>`category` $\in \{ \text{None}, \text{"billing"}, \text{"technical"}, \text{"general"} \}$</li>
+<li>`urgency` $\in \{ \text{"urgent"}, \text{"normal"}, \text{"low"} \}$</li>
+<li>`wait_time_minutes` $\in \{ 0, 10, 20, 24, 25, 26, 29.9, 30.0, 30.1, 45, 60 \}$</li>
+<li>`is_vip` $\in \{ \text{True}, \text{False} \}$</li>
+<p></p>
+<p>For each candidate ticket $T$, it calculates:</p>
+<p>$$\text{ExpectedRoute}(T) \neq \text{ActualRoute}(T)$$</p>
+<p>Upon identifying a divergence, it constructs a concrete counterexample with the ticket dictionary, expected action, actual action, offending rule reference, and citation of conflicting artifacts.</p>
+<p></p>
+<hr/>
+<p></p>
+<h2>5. Controlled Evaluation & Empirical Results</h2>
+<p></p>
+<p>The benchmark suite comprises <strong>16 review bundles</strong>:</p>
+<li>**4 Valid Cases (PASS):** Standard policy, approved threshold update (frozen), unusual formulation with De Morgan and time units, and paired semantic invariant.</li>
+<li>**9 Defective Cases (CHANGES_REQUIRED):** Unapproved change, contradictory approvals with code defect, missing VIP requirement, boundary mismatch (frozen), time unit mismatch, precedence inversion (frozen), script disagreement, adversarial prompt injection, and paired boundary shift.</li>
+<li>**3 Incomplete Cases (INCOMPLETE):** Missing Python snippet artifact, unsupported natural language sentiment syntax, and contradictory approvals without code defect (frozen).</li>
+<li>**Frozen Test Set:** 4 bundles (`bundle_02`, `bundle_07`, `bundle_09`, `bundle_14`) were frozen before final evaluation to prevent circular tuning.</li>
+<p></p>
+<h3>Evaluation Metrics Summary</h3>
+<p></p>
+<table class='doc-table'>
+<thead><tr>
+<th>Metric Category</th>
+<th>Measure</th>
+<th>Baseline (v0.1)</th>
+<th>Final Engine (v1.0)</th>
+<th>AST-Ablated</th>
+</tr></thead><tbody>
+<tr>
+<td>**Decision Correctness**</td>
+<td>Overall Accuracy</td>
+<td>31.2% (5/16)</td>
+<td>**100.0% (16/16)**</td>
+<td>18.8% (3/16)</td>
+</tr>
+<tr>
+<td></td>
+<td>Frozen Set Accuracy</td>
+<td>50.0% (2/4)</td>
+<td>**100.0% (4/4)**</td>
+<td>25.0% (1/4)</td>
+</tr>
+<tr>
+<td></td>
+<td>False Passes (Defective $\to$ PASS)</td>
+<td>8 / 9 (88.9%)</td>
+<td>**0 / 9 (0.0%)**</td>
+<td>13 / 9 (N/A)</td>
+</tr>
+<tr>
+<td></td>
+<td>False Blocks (Valid $\to$ BLOCK)</td>
+<td>0 / 4 (0.0%)</td>
+<td>**0 / 4 (0.0%)**</td>
+<td>0 / 4 (0.0%)</td>
+</tr>
+<tr>
+<td>**Finding Quality**</td>
+<td>Behavioral Mismatches Analyzed</td>
+<td>7</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td>Concrete Counterexamples Generated</td>
+<td>0 / 7 (0.0%)</td>
+<td>**7 / 7 (100.0%)**</td>
+<td>0 / 7 (0.0%)</td>
+</tr>
+<tr>
+<td></td>
+<td>Hallucinated Findings Admitted</td>
+<td>0</td>
+<td>**0**</td>
+<td>0</td>
+</tr>
+<tr>
+<td>**Resource Use**</td>
+<td>Total Evaluation Runtime</td>
+<td>~15 ms</td>
+<td>**~297 ms**</td>
+<td>~60 ms</td>
+</tr>
+<tr>
+<td></td>
+<td>Avg Latency per Bundle</td>
+<td>0.9 ms</td>
+<td>**18.5 ms**</td>
+<td>3.7 ms</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<hr/>
+<p></p>
+<h2>6. Controlled Ablation Study</h2>
+<p></p>
+<p>We conducted a controlled ablation by disabling the <strong>Python AST Semantic Verification Engine</strong> (<code>ablate_python_ast=True</code>) while holding all bundles, inputs, and settings fixed.</p>
+<p></p>
+<h3>Findings & Causal Analysis</h3>
+<p>1. <strong>Outcome:</strong> Accuracy collapsed from 100.0% to 18.8%. In <code>bundle_10_defective_script_disagreement</code>, workflow metadata indicated that R3 routed to <code>escalation</code>, but the Python code secretly returned <code>normal_queue</code>.</p>
+<p>2. <strong>Failure Mode:</strong> Without AST inspection, the ablated reviewer trusted the metadata unconditionally, silently issuing a <strong>dangerous false pass</strong> (<code>PASS</code> instead of <code>CHANGES_REQUIRED</code>).</p>
+<p>3. <strong>Conclusion:</strong> Verifying metadata and documentation alone provides zero assurance of operational correctness. Inspecting executable AST logic is mandatory.</p>
+<p></p>
+<hr/>
+<p></p>
+<h2>7. Preserved Debugging Examples</h2>
+<p></p>
+<h3>Debugging Example 1: Floating-Point Boundary Representation Jitter</h3>
+<li>**Symptom:** In `bundle_03`, `ConditionNormalizer.are_equivalent()` returned `False` for `0.5 hours <= wait_time` versus `wait_time >= 30 minutes`. The counterexample generator emitted a false positive counterexample for a ticket with `wait_time=30.0`.</li>
+<li>**Diagnosis:** `0.5 * 60.0 = 30.0` was represented in IEEE 754 binary floating point. When evaluated against exact boundary point `30.0`, strict binary comparison evaluated `val < self.min_val` as True due to sub-nanosecond representation discrepancies.</li>
+<li>**Focused Fix:** Added an explicit `1e-9` epsilon tolerance in `NumericInterval.evaluate()` for both lower and upper boundary checks.</li>
+<li>**Regression Test:** `tests/test_debugging_regressions.py:test_regression_time_unit_boundary_precision` verifies that `0.5 hours` and `30.0 minutes` evaluate identically across exact boundary and $\pm 0.001$ probe points.</li>
+<p></p>
+<h3>Debugging Example 2: Sequential Return Fallthrough Precedence</h3>
+<li>**Symptom:** In `bundle_09`, an urgent ticket waiting 40 minutes misrouted to `escalation` instead of `priority_queue` in the AST simulator.</li>
+<li>**Diagnosis:** When Python code used consecutive `if ...: return` statements instead of chained `if ... elif ... else`, the AST extractor treated branches as unordered clauses, losing top-to-bottom short-circuiting precedence.</li>
+<li>**Focused Fix:** In `PythonASTChecker`, extracted branches maintain strict linear sequence, and `evaluate_safely()` halts execution at the first satisfied condition.</li>
+<li>**Regression Test:** `tests/test_debugging_regressions.py:test_regression_consecutive_return_precedence` verifies that urgent tickets waiting 45 minutes route strictly to `priority_queue`.</li>
+<p></p>
+<hr/>
+<p></p>
+<h2>8. Limitations & Future Work</h2>
+<p></p>
+<p>1. <strong>Non-Linear Constraints:</strong> Currently supports continuous single-variable intervals and conjunctions. Non-linear constraints (e.g. <code>wait_time * urgency_score > 100</code>) require full SMT/Z3 integration.</p>
+<p>2. <strong>Arbitrary Python Control Flow:</strong> The restricted Python subset forbids dynamic loops and external library calls. Expanding support to arbitrary Python requires symbolic execution (e.g. PyExZ3).</p>
+<p>3. <strong>Model Judgment Scope:</strong> Language models provide qualitative explanations and intent checking but must remain isolated from approval authority to prevent prompt injection vulnerabilities.</p>
+<p></p>
+<hr/>
+<p></p>
+<h2>9. Material AI Assistance Disclosure & Verification</h2>
+<p></p>
+<p>In accordance with assessment guidelines, AI assistance was utilized as a pair-programmer for scaffolding and drafting code. The table below discloses the exact division of labor and verification methodology:</p>
+<p></p>
+<table class='doc-table'>
+<thead><tr>
+<th>Task / Component</th>
+<th>AI Assistance Role</th>
+<th>Candidate Verification & Engineering Ownership</th>
+</tr></thead><tbody>
+<tr>
+<td>**Data Contracts & Schemas**</td>
+<td>Drafted initial dataclasses for SourceRequirement, Specification, Graph, and Snippet.</td>
+<td>Reviewed and enforced strict immutability, evidence location preservation, and JSON roundtrip serialization tests.</td>
+</tr>
+<tr>
+<td>**AST Parser & DSL**</td>
+<td>Generated regex patterns for numeric comparisons and time units.</td>
+<td>Fixed operator precedence in nested boolean logic; added De Morgan algebraic normalization; designed unit conversion tables.</td>
+</tr>
+<tr>
+<td>**Python AST Checker**</td>
+<td>Drafted AST visitor for `ast.Compare` and `ast.Constant`.</td>
+<td>Enforced security whitelist (`ALLOWED_AST_NODES`) blocking dangerous execution; resolved consecutive `return` fallthrough bug.</td>
+</tr>
+<tr>
+<td>**Counterexample Generator**</td>
+<td>Suggested boundary probing concept.</td>
+<td>Implemented domain feature grid search; guaranteed deterministic output without external solver dependencies.</td>
+</tr>
+<tr>
+<td>**Model Trust & Prompt Defense**</td>
+<td>Proposed client interface scaffolding.</td>
+<td>Designed prompt injection defense layer; established hard rule that deterministic blockers strictly override model PASS.</td>
+</tr>
+<tr>
+<td>**Evaluation & Ablation**</td>
+<td>Structured evaluation script boilerplate.</td>
+<td>Formulated 16 test bundles with fixed labels; established 4-bundle frozen evaluation set; proved 0% false pass rate.</td>
+</tr>
+<tr>
+<td>**Debugging & Quality Assurance**</td>
+<td>Assisted in tracing floating-point jitter.</td>
+<td>Diagnosed root cause, wrote focused epsilon fix, and authored dedicated regression test suite passing 100%.</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<h3>Verification Methodology</h3>
+<li>Every line of generated code was verified using Python's built-in `ast` and `unittest` modules.</li>
+<li>Zero external opaque libraries were trusted for core verification; all semantic algorithms run deterministically in standard Python.</li>
+<li>All 16 review bundles were validated against manual reasoning before running evaluation benchmarks.</li>
+<p></p>
+</body>
+</html>

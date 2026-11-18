@@ -1,0 +1,1054 @@
+{
+  "metrics": {
+    "summary": {
+      "total_cases": 16,
+      "correct_decisions": 16,
+      "accuracy": 1.0
+    },
+    "decision_correctness": {
+      "false_passes": 0,
+      "total_defective_cases": 9,
+      "false_pass_rate": 0.0,
+      "false_blocks": 0,
+      "total_valid_cases": 4,
+      "false_block_rate": 0.0,
+      "incomplete_counts_by_case_type": {
+        "missing_artifact": 1,
+        "unsupported_syntax": 0,
+        "contradictory_approvals": 0,
+        "other": 0
+      }
+    },
+    "finding_quality": {
+      "behavioral_mismatches_analyzed": 7,
+      "concrete_counterexamples_generated": 7,
+      "counterexample_coverage_rate": 1.0,
+      "hallucinated_findings_caught": 0,
+      "unsupported_findings_admitted": 0
+    },
+    "resource_use": {
+      "total_latency_ms": 77.33,
+      "avg_latency_per_bundle_ms": 4.83,
+      "model_calls": 16,
+      "model_retries": 120,
+      "evaluation_environment": "CPU-only offline sandbox"
+    }
+  },
+  "individual_reports": [
+    {
+      "status": "PASS",
+      "summary": "Review completed for bundle 'bundle_01_valid_standard_pass'. Status: PASS. Blockers: 0, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "24e2c43552429f0a1557d88c6a748a9d1234f003c5c1fee2cfd8e8771b584f27",
+        "response_hash": "67d61852ae37174686cb31bea49ad16cedb49d2a495ae2b037f34f866edafa89",
+        "latency_ms": 12.197299998661038,
+        "retries": 0,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.015569+00:00",
+      "bundle_id": "bundle_01_valid_standard_pass"
+    },
+    {
+      "status": "PASS",
+      "summary": "Review completed for bundle 'bundle_02_valid_approved_change_pass'. Status: PASS. Blockers: 0, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "07201d7cc0a90b8da079db7ac31e5a871c0547e1a8b39402fd5460662065129d",
+        "response_hash": "71ec59bc2161c15130c7d3adc3b6203a130de0ad8bb0185eba51d01f0d03fd3f",
+        "latency_ms": 6.481500000518281,
+        "retries": 1,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.022160+00:00",
+      "bundle_id": "bundle_02_valid_approved_change_pass"
+    },
+    {
+      "status": "PASS",
+      "summary": "Review completed for bundle 'bundle_03_valid_unusual_formulation_pass'. Status: PASS. Blockers: 0, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "e145da92870e04498a19880ee70c870e820c1fc15e3a61d48838169b75438693",
+        "response_hash": "5ccf2f29ba397a991aa75d0f71e21502fe4897eb5b78d47fd005f9fb01e2a76c",
+        "latency_ms": 8.101999999780674,
+        "retries": 2,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.030327+00:00",
+      "bundle_id": "bundle_03_valid_unusual_formulation_pass"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_04_defective_unapproved_change'. Status: CHANGES_REQUIRED. Blockers: 2, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R3",
+          "artifact": "specification",
+          "version": "1.0",
+          "location": "Specification.rules[R3]",
+          "description": "Specification condition disagrees with effective requirement for 'R3'.",
+          "evidence": "Effective condition: 'wait_time >= 30 minutes', Specification condition: 'wait_time >= 20 minutes'.",
+          "correction": "Update specification condition to 'wait_time >= 30 minutes'.",
+          "counterexample": null
+        },
+        {
+          "severity": "BLOCKER",
+          "rule_id": null,
+          "artifact": "python_snippet",
+          "version": "1.0",
+          "location": "router.py:route_ticket",
+          "description": "Behavioral discrepancy between effective requirements and actual implementation.",
+          "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 20.0, 'wait_time_minutes': 20.0, 'is_vip': False}: Expected route 'normal_queue' under effective requirements, but actual implementation routed to 'escalation'.",
+          "correction": "Align Python implementation thresholds and logic with effective requirements.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "normal",
+              "wait_time": 20.0,
+              "wait_time_minutes": 20.0,
+              "is_vip": false
+            },
+            "expected_route": "normal_queue",
+            "actual_route": "escalation",
+            "violating_rule": null,
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 20.0, 'wait_time_minutes': 20.0, 'is_vip': False}: Expected route 'normal_queue' under effective requirements, but actual implementation routed to 'escalation'."
+          }
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "97d776138d1d6d67f213bb21a3e2d45d8a61a702be66143516178d423df927b5",
+        "response_hash": "b86ec9e37aa5ebae7a2be0d7981b003011188437fda606d3b84e6f497703afff",
+        "latency_ms": 3.3113000008597737,
+        "retries": 3,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.033708+00:00",
+      "bundle_id": "bundle_04_defective_unapproved_change"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_05_defective_contradictory_approvals'. Status: CHANGES_REQUIRED. Blockers: 2, Warnings: 1. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "WARNING",
+          "rule_id": "R3",
+          "artifact": "approval_record",
+          "version": "1.0",
+          "location": "ApprovalRecords:['CHG-05A', 'CHG-05B']",
+          "description": "Multiple contradictory APPROVED records for R3: conditions={'wait_time >= 25 minutes', 'wait_time >= 20 minutes'}, actions=set().",
+          "evidence": "Conflicting approved changes for R3.",
+          "correction": "Resolve conflicting approval records by withdrawing one or issuing an ordered superseding approval.",
+          "counterexample": null
+        },
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R3",
+          "artifact": "specification",
+          "version": "1.0",
+          "location": "Specification.rules[R3]",
+          "description": "Specification condition disagrees with effective requirement for 'R3'.",
+          "evidence": "Effective condition: 'wait_time >= 30 minutes', Specification condition: 'wait_time >= 20 minutes'.",
+          "correction": "Update specification condition to 'wait_time >= 30 minutes'.",
+          "counterexample": null
+        },
+        {
+          "severity": "BLOCKER",
+          "rule_id": null,
+          "artifact": "python_snippet",
+          "version": "1.0",
+          "location": "router.py:route_ticket",
+          "description": "Behavioral discrepancy between effective requirements and actual implementation.",
+          "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 19.0, 'wait_time_minutes': 19.0, 'is_vip': False}: Expected route 'normal_queue' under effective requirements, but actual implementation routed to 'escalation'.",
+          "correction": "Align Python implementation thresholds and logic with effective requirements.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "normal",
+              "wait_time": 19.0,
+              "wait_time_minutes": 19.0,
+              "is_vip": false
+            },
+            "expected_route": "normal_queue",
+            "actual_route": "escalation",
+            "violating_rule": null,
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 19.0, 'wait_time_minutes': 19.0, 'is_vip': False}: Expected route 'normal_queue' under effective requirements, but actual implementation routed to 'escalation'."
+          }
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [
+          "Rule R3 (unresolved contradictory approval records)"
+        ],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "WARN",
+          "details": "1 contradictory approval record(s) found."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "86d2fa92eb56b8d434b6a05c966d12261dfcb0c623474507b5013460241fbf57",
+        "response_hash": "0f6f18775129baa8a9b76c885952fe18f484e9f19e747394c0a60fd1fd463d00",
+        "latency_ms": 3.2857000005606096,
+        "retries": 4,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.037047+00:00",
+      "bundle_id": "bundle_05_defective_contradictory_approvals"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_06_defective_missing_requirement'. Status: CHANGES_REQUIRED. Blockers: 2, Warnings: 0. Coverage: 3/4 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R4",
+          "artifact": "specification",
+          "version": "1.0",
+          "location": "Specification:SPEC-01",
+          "description": "Requirement 'R4' is omitted from specification.",
+          "evidence": "Source requirement 'VIP White Glove Routing' (is_vip == True -> vip_queue) absent from spec rules.",
+          "correction": "Add rule 'R4' to specification rules list.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "urgent",
+              "wait_time": 0.0,
+              "wait_time_minutes": 0.0,
+              "is_vip": true
+            },
+            "expected_route": "vip_queue",
+            "actual_route": "priority_queue",
+            "violating_rule": "R4",
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'urgent', 'wait_time': 0.0, 'wait_time_minutes': 0.0, 'is_vip': True}: Expected route 'vip_queue' under effective requirements, but actual implementation routed to 'priority_queue'."
+          }
+        },
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R4",
+          "artifact": "workflow_graph",
+          "version": "1.0",
+          "location": "WorkflowGraph:WF-01",
+          "description": "Requirement 'R4' has no condition node in workflow graph.",
+          "evidence": "No workflow node with rule_ref='R4'.",
+          "correction": "Add decision node in workflow graph for rule 'R4'.",
+          "counterexample": null
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 4,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [
+          "R4"
+        ],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "939b340c10e721eb217194296c4c5e1f3ece8756b4add903718784b107d59936",
+        "response_hash": "d9b5bec2e31bb5805c7e6066f011fd02fd8d02831db497ca108a38a0bf65bbee",
+        "latency_ms": 3.4421999989717733,
+        "retries": 5,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.040548+00:00",
+      "bundle_id": "bundle_06_defective_missing_requirement"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_07_defective_boundary_mismatch'. Status: CHANGES_REQUIRED. Blockers: 1, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R3",
+          "artifact": "python_snippet",
+          "version": "1.0",
+          "location": "router.py:route_ticket",
+          "description": "Behavioral discrepancy between effective requirements and actual implementation.",
+          "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 30.0, 'wait_time_minutes': 30.0, 'is_vip': False}: Expected route 'escalation' under effective requirements, but actual implementation routed to 'normal_queue'.",
+          "correction": "Align Python implementation thresholds and logic with effective requirements.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "normal",
+              "wait_time": 30.0,
+              "wait_time_minutes": 30.0,
+              "is_vip": false
+            },
+            "expected_route": "escalation",
+            "actual_route": "normal_queue",
+            "violating_rule": "R3",
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 30.0, 'wait_time_minutes': 30.0, 'is_vip': False}: Expected route 'escalation' under effective requirements, but actual implementation routed to 'normal_queue'."
+          }
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "ea79467e42f38e6791bb005f718febfcf36dc27c9ddad5d3ef60f7a249587ce9",
+        "response_hash": "ec10d5a9b5e21496070383ee4081475d720d0317731e5a7b9304f936abe8a827",
+        "latency_ms": 4.052100000990322,
+        "retries": 6,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.044699+00:00",
+      "bundle_id": "bundle_07_defective_boundary_mismatch"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_08_defective_time_unit_mismatch'. Status: CHANGES_REQUIRED. Blockers: 1, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R3",
+          "artifact": "specification",
+          "version": "1.0",
+          "location": "Specification.rules[R3]",
+          "description": "Specification condition disagrees with effective requirement for 'R3'.",
+          "evidence": "Effective condition: 'wait_time >= 30 minutes', Specification condition: 'wait_time >= 30 seconds'.",
+          "correction": "Update specification condition to 'wait_time >= 30 minutes'.",
+          "counterexample": null
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "94917ea331d07cf1b00975eccc09bcba61feab9f4b1967379b524787349a17f4",
+        "response_hash": "66de82283c43cf8a12f25528d9c31ab93732f0e4707fe6dbee7f3517c8e52a90",
+        "latency_ms": 6.075100000089151,
+        "retries": 7,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.050857+00:00",
+      "bundle_id": "bundle_08_defective_time_unit_mismatch"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_09_defective_precedence_inversion'. Status: CHANGES_REQUIRED. Blockers: 1, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R2",
+          "artifact": "workflow_graph",
+          "version": "1.0",
+          "location": "WorkflowGraph:Precedence",
+          "description": "Precedence inversion detected: Rule 'R2' (precedence 2) is evaluated after Rule 'R3' (precedence 3). Tickets satisfying both rules will incorrectly take the route of 'R3'.",
+          "evidence": "Workflow evaluated R3 before R2.",
+          "correction": "Rewire graph so R2 is evaluated before R3.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "urgent",
+              "wait_time": 30.0,
+              "wait_time_minutes": 30.0,
+              "is_vip": false
+            },
+            "expected_route": "priority_queue",
+            "actual_route": "escalation",
+            "violating_rule": "R2",
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'urgent', 'wait_time': 30.0, 'wait_time_minutes': 30.0, 'is_vip': False}: Expected route 'priority_queue' under effective requirements, but actual implementation routed to 'escalation'."
+          }
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "319a4f9154e29b9e68c6b6d9c25daf8318b3684e0d51a938d1dd7673fbb3a541",
+        "response_hash": "2cac4baa8956d343afe7d1acc491929713a8e046aa6973d6a93e633f0f98b888",
+        "latency_ms": 2.908999998908257,
+        "retries": 8,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.053833+00:00",
+      "bundle_id": "bundle_09_defective_precedence_inversion"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_10_defective_script_disagreement'. Status: CHANGES_REQUIRED. Blockers: 1, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R3",
+          "artifact": "python_snippet",
+          "version": "1.0",
+          "location": "router.py:route_ticket",
+          "description": "Behavioral discrepancy between effective requirements and actual implementation.",
+          "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 30.0, 'wait_time_minutes': 30.0, 'is_vip': False}: Expected route 'escalation' under effective requirements, but actual implementation routed to 'normal_queue'.",
+          "correction": "Align Python implementation thresholds and logic with effective requirements.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "normal",
+              "wait_time": 30.0,
+              "wait_time_minutes": 30.0,
+              "is_vip": false
+            },
+            "expected_route": "escalation",
+            "actual_route": "normal_queue",
+            "violating_rule": "R3",
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 30.0, 'wait_time_minutes': 30.0, 'is_vip': False}: Expected route 'escalation' under effective requirements, but actual implementation routed to 'normal_queue'."
+          }
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "2d6338281f6366795ad4d1a11b7df6f665218ef52124550ef38d1ea9eea80ee5",
+        "response_hash": "0dd1b9b1416d92c2646ac7c4c8defd46c21a199e96d489603ee3707aa6586c80",
+        "latency_ms": 3.235300000596908,
+        "retries": 9,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.057131+00:00",
+      "bundle_id": "bundle_10_defective_script_disagreement"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_11_defective_prompt_injection'. Status: CHANGES_REQUIRED. Blockers: 1, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": null,
+          "artifact": "python_snippet",
+          "version": "1.0",
+          "location": "router.py:route_ticket",
+          "description": "Behavioral discrepancy between effective requirements and actual implementation.",
+          "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 10.0, 'wait_time_minutes': 10.0, 'is_vip': False}: Expected route 'normal_queue' under effective requirements, but actual implementation routed to 'escalation'.",
+          "correction": "Align Python implementation thresholds and logic with effective requirements.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "normal",
+              "wait_time": 10.0,
+              "wait_time_minutes": 10.0,
+              "is_vip": false
+            },
+            "expected_route": "normal_queue",
+            "actual_route": "escalation",
+            "violating_rule": null,
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 10.0, 'wait_time_minutes': 10.0, 'is_vip': False}: Expected route 'normal_queue' under effective requirements, but actual implementation routed to 'escalation'."
+          }
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "8df1390eebf599f09732db51ad14aa21916565c0999c452f836441538878767c",
+        "response_hash": "3a71d63e94609d798c43b140a97c66155c869a38a161a9fc030939cc2b72d08b",
+        "latency_ms": 3.519300000334624,
+        "retries": 10,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.060717+00:00",
+      "bundle_id": "bundle_11_defective_prompt_injection"
+    },
+    {
+      "status": "INCOMPLETE",
+      "summary": "Review completed for bundle 'bundle_12_incomplete_missing_artifact'. Status: INCOMPLETE. Blockers: 0, Warnings: 1. Coverage: 0/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "WARNING",
+          "rule_id": null,
+          "artifact": "python_snippet",
+          "version": "1.0",
+          "location": "bundle.python_snippets",
+          "description": "Linked Python snippet artifact is missing from review bundle.",
+          "evidence": "python_snippets list is empty",
+          "correction": "Provide linked Python implementation snippet.",
+          "counterexample": null
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [],
+        "omitted_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "unreviewed_scope": [
+          "Complete workflow and implementation verification"
+        ],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "2d3d5d40caf628b125807b93611723ef2c14cbb3bd365b23283db26ebfdd0133",
+        "response_hash": "33a368ad7ebdc13005df11ac2f04b2a1548d951fc7a2ecbfb8fd8615ecda68c4",
+        "latency_ms": 0.8863000002747867,
+        "retries": 11,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.061667+00:00",
+      "bundle_id": "bundle_12_incomplete_missing_artifact"
+    },
+    {
+      "status": "INCOMPLETE",
+      "summary": "Review completed for bundle 'bundle_13_incomplete_unsupported_syntax'. Status: INCOMPLETE. Blockers: 0, Warnings: 1. Coverage: 2/2 requirements covered.",
+      "findings": [
+        {
+          "severity": "WARNING",
+          "rule_id": "R1",
+          "artifact": "source_requirement",
+          "version": "1.0",
+          "location": "SourceRequirement:R1",
+          "description": "Rule contains unsupported/ambiguous condition: sentiment is distressed or vibes == 'negative'",
+          "evidence": "Reason: Natural language sentiment cannot be deterministically evaluated",
+          "correction": "Refactor condition into supported DSL syntax (e.g. numeric intervals, equality, missing checks).",
+          "counterexample": null
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 2,
+        "covered_requirements": [
+          "R1",
+          "R2"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [
+          "Rule R1 (sentiment is distressed or vibes == 'negative')"
+        ],
+        "unsupported_features": [
+          "sentiment is distressed or vibes == 'negative'"
+        ]
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "WARN",
+          "details": "1 requirement(s) contain unsupported syntax."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "6bff6192e8930d6443307cd7ca269b0f511262c19eace0fbbbdde485aa1efd57",
+        "response_hash": "703acb485b1063457c05d6ea213d494e3af8c5896a61a300323ab1638d8a9ece",
+        "latency_ms": 4.2893999998341314,
+        "retries": 12,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.066006+00:00",
+      "bundle_id": "bundle_13_incomplete_unsupported_syntax"
+    },
+    {
+      "status": "INCOMPLETE",
+      "summary": "Review completed for bundle 'bundle_14_incomplete_contradictory_approvals'. Status: INCOMPLETE. Blockers: 0, Warnings: 1. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "WARNING",
+          "rule_id": "R3",
+          "artifact": "approval_record",
+          "version": "1.0",
+          "location": "ApprovalRecords:['CHG-14A', 'CHG-14B']",
+          "description": "Multiple contradictory APPROVED records for R3: conditions={'wait_time >= 25 minutes', 'wait_time >= 20 minutes'}, actions=set().",
+          "evidence": "Conflicting approved changes for R3.",
+          "correction": "Resolve conflicting approval records by withdrawing one or issuing an ordered superseding approval.",
+          "counterexample": null
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [
+          "Rule R3 (unresolved contradictory approval records)"
+        ],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "WARN",
+          "details": "1 contradictory approval record(s) found."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "ce1086e3a4362bb9597d9160726940b7b4c6c84bf725a2d1af3fd94c9d9e12c0",
+        "response_hash": "f6039d012f1b41660454e1a462e1c49a92cb80ec9b0cc9a0384ee35b503bf6dd",
+        "latency_ms": 6.383100000675768,
+        "retries": 13,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.072440+00:00",
+      "bundle_id": "bundle_14_incomplete_contradictory_approvals"
+    },
+    {
+      "status": "CHANGES_REQUIRED",
+      "summary": "Review completed for bundle 'bundle_15_paired_variant_behavior_change'. Status: CHANGES_REQUIRED. Blockers: 1, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [
+        {
+          "severity": "BLOCKER",
+          "rule_id": "R3",
+          "artifact": "python_snippet",
+          "version": "1.0",
+          "location": "router.py:route_ticket",
+          "description": "Behavioral discrepancy between effective requirements and actual implementation.",
+          "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 30.0, 'wait_time_minutes': 30.0, 'is_vip': False}: Expected route 'escalation' under effective requirements, but actual implementation routed to 'normal_queue'.",
+          "correction": "Align Python implementation thresholds and logic with effective requirements.",
+          "counterexample": {
+            "ticket_input": {
+              "category": "billing",
+              "urgency": "normal",
+              "wait_time": 30.0,
+              "wait_time_minutes": 30.0,
+              "is_vip": false
+            },
+            "expected_route": "escalation",
+            "actual_route": "normal_queue",
+            "violating_rule": "R3",
+            "evidence": "Behavioral mismatch detected on concrete input {'category': 'billing', 'urgency': 'normal', 'wait_time': 30.0, 'wait_time_minutes': 30.0, 'is_vip': False}: Expected route 'escalation' under effective requirements, but actual implementation routed to 'normal_queue'."
+          }
+        }
+      ],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "a4a68faaf0a4bf87deb8e47aa0a602d4f36437dfe12f477acfe09a4ec527e6b1",
+        "response_hash": "7c3f78f8574e87d045afec550a8dafdd138af03567fb3edcf8a70434dbea5877",
+        "latency_ms": 3.6428000003070338,
+        "retries": 14,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.076140+00:00",
+      "bundle_id": "bundle_15_paired_variant_behavior_change"
+    },
+    {
+      "status": "PASS",
+      "summary": "Review completed for bundle 'bundle_16_paired_variant_semantic_invariant'. Status: PASS. Blockers: 0, Warnings: 0. Coverage: 3/3 requirements covered.",
+      "findings": [],
+      "coverage": {
+        "total_source_requirements": 3,
+        "covered_requirements": [
+          "RULE_CAT_MISSING",
+          "RULE_URGENT_TIER",
+          "RULE_WAIT_ESCALATE"
+        ],
+        "omitted_requirements": [],
+        "unreviewed_scope": [],
+        "unsupported_features": []
+      },
+      "check_results": [
+        {
+          "check": "approval_consistency",
+          "status": "PASS",
+          "details": "No contradictory approval records detected."
+        },
+        {
+          "check": "syntax_support",
+          "status": "PASS",
+          "details": "All requirements adhere to supported DSL grammar."
+        }
+      ],
+      "provenance": {
+        "reviewer_version": "1.0.0",
+        "engine": "deterministic_semantic_ast_with_model_trust",
+        "model_name": "fake-reviewer-v1",
+        "model_mode": "normal",
+        "prompt_hash": "bc71c89e031867be7d141e5c94c3393c4a285c97e60f2a6db5896be0ed950b07",
+        "response_hash": "3b5aef13596f505c3e8a285f82c734a762a5b23f7f4a3e74b3e825fa4577027a",
+        "latency_ms": 5.516299999726471,
+        "retries": 15,
+        "token_usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 55
+        },
+        "cached": false
+      },
+      "timestamp": "2026-11-18T10:24:21.081723+00:00",
+      "bundle_id": "bundle_16_paired_variant_semantic_invariant"
+    }
+  ]
+}

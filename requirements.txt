@@ -1,0 +1,11 @@
+# Pinned dependencies for ShodhAI ML Assessment: AI-Assisted Workflow Reviewer
+# Reproducible CPU-only environment
+
+# Testing and Type checking
+pytest==8.3.4
+pydantic==2.10.4
+typing_extensions==4.12.2
+
+# Formatting and Code Quality (Optional)
+black==24.10.0
+flake8==7.1.1

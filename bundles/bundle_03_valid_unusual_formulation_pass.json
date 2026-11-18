@@ -1,0 +1,143 @@
+{
+  "bundle_id": "bundle_03_valid_unusual_formulation_pass",
+  "name": "Valid Unusual Formulation (Units and De Morgan)",
+  "description": "Uses 0.5 hours <= wait_time and de morgan negation, demonstrating semantic normalization.",
+  "source_requirements": [
+    {
+      "id": "R1",
+      "version": "1.0",
+      "section": "Policies.md#R1",
+      "title": "Missing Category Check",
+      "condition_dsl": "missing category",
+      "action": "manual_review",
+      "precedence": 1,
+      "prose": "Any ticket missing category goes to manual review.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": true,
+      "ambiguity_reason": null
+    },
+    {
+      "id": "R2",
+      "version": "1.0",
+      "section": "Policies.md#R2",
+      "title": "Urgent Tickets",
+      "condition_dsl": "not (urgency != 'urgent')",
+      "action": "priority_queue",
+      "precedence": 2,
+      "prose": "Urgent tickets routed to priority queue.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": true,
+      "ambiguity_reason": null
+    },
+    {
+      "id": "R3",
+      "version": "1.0",
+      "section": "Policies.md#R3",
+      "title": "Wait Time Escalation",
+      "condition_dsl": "0.5 hours <= wait_time",
+      "action": "escalation",
+      "precedence": 3,
+      "prose": "Tickets waiting 0.5 hours or more escalated.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": true,
+      "ambiguity_reason": null
+    }
+  ],
+  "specification": {
+    "id": "SPEC-03",
+    "version": "1.0",
+    "rules": [
+      {
+        "rule_id": "R1",
+        "condition_dsl": "category is None",
+        "action": "manual_review",
+        "precedence": 1,
+        "metadata": {}
+      },
+      {
+        "rule_id": "R2",
+        "condition_dsl": "urgency == 'urgent'",
+        "action": "priority_queue",
+        "precedence": 2,
+        "metadata": {}
+      },
+      {
+        "rule_id": "R3",
+        "condition_dsl": "wait_time >= 30 minutes",
+        "action": "escalation",
+        "precedence": 3,
+        "metadata": {}
+      }
+    ],
+    "fallback_action": "normal_queue",
+    "evidence_location": ""
+  },
+  "workflow_graph": {
+    "id": "WF-03",
+    "version": "1.0",
+    "entry_node_id": "N1",
+    "nodes": {
+      "N1": {
+        "node_id": "N1",
+        "type": "condition",
+        "rule_ref": "R1",
+        "condition_dsl": "category is None",
+        "if_true": "manual_review",
+        "if_false": "N2",
+        "action": null,
+        "version": "1.0"
+      },
+      "N2": {
+        "node_id": "N2",
+        "type": "condition",
+        "rule_ref": "R2",
+        "condition_dsl": "urgency == 'urgent'",
+        "if_true": "priority_queue",
+        "if_false": "N3",
+        "action": null,
+        "version": "1.0"
+      },
+      "N3": {
+        "node_id": "N3",
+        "type": "condition",
+        "rule_ref": "R3",
+        "condition_dsl": "wait_time >= 30 minutes",
+        "if_true": "escalation",
+        "if_false": "N_FALLBACK",
+        "action": null,
+        "version": "1.0"
+      },
+      "N_FALLBACK": {
+        "node_id": "N_FALLBACK",
+        "type": "action",
+        "rule_ref": null,
+        "condition_dsl": null,
+        "if_true": null,
+        "if_false": null,
+        "action": "normal_queue",
+        "version": "1.0"
+      }
+    }
+  },
+  "python_snippets": [
+    {
+      "snippet_id": "SNIP-03",
+      "rule_ref": null,
+      "version": "1.0",
+      "file_path": "router.py",
+      "entry_function": "route_ticket",
+      "code": "def route_ticket(ticket):\n    if ticket.get(\"category\") is None:\n        return \"manual_review\"\n    if ticket.get(\"urgency\") == \"urgent\":\n        return \"priority_queue\"\n    if ticket.get(\"wait_time_minutes\", 0) >= 30:\n        return \"escalation\"\n    return \"normal_queue\"\n"
+    }
+  ],
+  "approval_records": [],
+  "expected_status": "PASS",
+  "expected_defects": [],
+  "tags": [
+    "valid",
+    "unusual_formulation"
+  ],
+  "is_frozen": false
+}

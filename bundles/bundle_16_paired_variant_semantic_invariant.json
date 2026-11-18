@@ -1,0 +1,143 @@
+{
+  "bundle_id": "bundle_16_paired_variant_semantic_invariant",
+  "name": "Paired Variant B: Renamed IDs and Paraphrased Invariant",
+  "description": "Paired with Bundle 01: renames IDs and paraphrases titles, preserving exact semantics and routing behavior.",
+  "source_requirements": [
+    {
+      "id": "RULE_CAT_MISSING",
+      "version": "1.0",
+      "section": "Routing.md",
+      "title": "Missing Category Verification",
+      "condition_dsl": "category is None",
+      "action": "manual_review",
+      "precedence": 1,
+      "prose": "All tickets lacking category go to manual review.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": true,
+      "ambiguity_reason": null
+    },
+    {
+      "id": "RULE_URGENT_TIER",
+      "version": "1.0",
+      "section": "Routing.md",
+      "title": "Urgent Tier Routing",
+      "condition_dsl": "urgency == 'urgent'",
+      "action": "priority_queue",
+      "precedence": 2,
+      "prose": "Urgent cases to priority queue.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": true,
+      "ambiguity_reason": null
+    },
+    {
+      "id": "RULE_WAIT_ESCALATE",
+      "version": "1.0",
+      "section": "Routing.md",
+      "title": "Wait Time Escalation Rule",
+      "condition_dsl": "wait_time >= 30 minutes",
+      "action": "escalation",
+      "precedence": 3,
+      "prose": "Waiting 30 mins or more leads to escalation.",
+      "notes": "",
+      "evidence_location": "",
+      "is_supported": true,
+      "ambiguity_reason": null
+    }
+  ],
+  "specification": {
+    "id": "SPEC-16",
+    "version": "1.0",
+    "rules": [
+      {
+        "rule_id": "RULE_CAT_MISSING",
+        "condition_dsl": "category is None",
+        "action": "manual_review",
+        "precedence": 1,
+        "metadata": {}
+      },
+      {
+        "rule_id": "RULE_URGENT_TIER",
+        "condition_dsl": "urgency == 'urgent'",
+        "action": "priority_queue",
+        "precedence": 2,
+        "metadata": {}
+      },
+      {
+        "rule_id": "RULE_WAIT_ESCALATE",
+        "condition_dsl": "wait_time >= 30 minutes",
+        "action": "escalation",
+        "precedence": 3,
+        "metadata": {}
+      }
+    ],
+    "fallback_action": "normal_queue",
+    "evidence_location": ""
+  },
+  "workflow_graph": {
+    "id": "WF-16",
+    "version": "1.0",
+    "entry_node_id": "NODE_CAT",
+    "nodes": {
+      "NODE_CAT": {
+        "node_id": "NODE_CAT",
+        "type": "condition",
+        "rule_ref": "RULE_CAT_MISSING",
+        "condition_dsl": "category is None",
+        "if_true": "manual_review",
+        "if_false": "NODE_URG",
+        "action": null,
+        "version": "1.0"
+      },
+      "NODE_URG": {
+        "node_id": "NODE_URG",
+        "type": "condition",
+        "rule_ref": "RULE_URGENT_TIER",
+        "condition_dsl": "urgency == 'urgent'",
+        "if_true": "priority_queue",
+        "if_false": "NODE_WAIT",
+        "action": null,
+        "version": "1.0"
+      },
+      "NODE_WAIT": {
+        "node_id": "NODE_WAIT",
+        "type": "condition",
+        "rule_ref": "RULE_WAIT_ESCALATE",
+        "condition_dsl": "wait_time >= 30 minutes",
+        "if_true": "escalation",
+        "if_false": "NODE_FALLBACK",
+        "action": null,
+        "version": "1.0"
+      },
+      "NODE_FALLBACK": {
+        "node_id": "NODE_FALLBACK",
+        "type": "action",
+        "rule_ref": null,
+        "condition_dsl": null,
+        "if_true": null,
+        "if_false": null,
+        "action": "normal_queue",
+        "version": "1.0"
+      }
+    }
+  },
+  "python_snippets": [
+    {
+      "snippet_id": "SNIP-16",
+      "rule_ref": null,
+      "version": "1.0",
+      "file_path": "router.py",
+      "entry_function": "route_ticket",
+      "code": "def route_ticket(ticket):\n    if ticket.get(\"category\") is None:\n        return \"manual_review\"\n    if ticket.get(\"urgency\") == \"urgent\":\n        return \"priority_queue\"\n    if ticket.get(\"wait_time_minutes\", 0) >= 30:\n        return \"escalation\"\n    return \"normal_queue\"\n"
+    }
+  ],
+  "approval_records": [],
+  "expected_status": "PASS",
+  "expected_defects": [],
+  "tags": [
+    "paired_variant",
+    "semantic_invariant"
+  ],
+  "is_frozen": false
+}
